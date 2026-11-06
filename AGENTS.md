@@ -2,10 +2,14 @@
 
 File convention: <parent_folder>.<file_name>.ts
 Keep agents.md and readme.md update on change project structure
-Commit small changes using "feat/update/fix/refactor/remove:"
+Commit small changes using "feat/update/fix/refactor/remove:<short_description>"
 Push commits is always manual
+Use src/config for configuration
 Use src/constants for variables
 Use src/utils for utilitare code
+Use src/components/common for commom features
+Use src/components/ for section related features
+Use src/lib/ for aws resources
 
 ## Project Overview
 
