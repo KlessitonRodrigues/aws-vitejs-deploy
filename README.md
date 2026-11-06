@@ -48,12 +48,20 @@ aws-vitejs-deploy/
 ├── package.json
 ├── tsconfig.json
 ├── yarn.lock
-├── awsDeploy.ts          # CDK stack definition & app entrypoint
+├── src/
+│   ├── awsDeploy.ts          # CDK stack definition & app entrypoint
+│   ├── constants/
+│   │   └── paths.ts          # Path variables
+│   └── lib/
+│       ├── s3/
+│   │       └── bucket.ts     # S3 bucket construct
+│       └── cloudfront/
+│           └── distribution.ts # CloudFront distribution construct
 ├── cdk.out/              # Synthesized CDK output (gitignored)
 └── node_modules/         # Installed dependencies (gitignored)
 ```
 
 ## Notes
 
-- Assets are sourced from `../../apps/vite-profile-page/dist` relative to `awsDeploy.ts`. Adjust `profilePagePath` in `awsDeploy.ts:7` if your Vite build output lives elsewhere.
+- Assets are sourced from `../../apps/vite-profile-page/dist` relative to `src/awsDeploy.ts`. Adjust `profilePagePath` in `src/constants/paths.ts` if your Vite build output lives elsewhere.
 - Stack id is `ProfileWebsiteStack`.
