@@ -7,8 +7,11 @@ AWS CDK application that deploys a Vite.js static website to an S3 bucket served
 Add this repository as a Git submodule to your parent project:
 
 ```bash
-# Add submodule (adjust path as desired)
+# Add submodule
 git submodule add git@github.com:KlessitonRodrigues/aws-vitejs-deploy.git aws-vitejs-deploy
+
+# Switch to a new branch for customization
+git checkout -b <branch-name>
 
 # Initialize and update submodules (run in parent repo after cloning)
 git submodule init

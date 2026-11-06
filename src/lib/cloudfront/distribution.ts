@@ -1,5 +1,5 @@
-import * as cdk from 'aws-cdk-lib';
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
@@ -12,33 +12,27 @@ export function createCloudFrontDistribution(
   scope: Construct,
   id: string,
   props: CloudFrontDistributionProps,
-): cloudFront.CloudFrontWebDistribution {
-  return new cloudFront.CloudFrontWebDistribution(scope, id, {
+): cloudFront.Distribution {
+  const cachePolicy = new cloudFront.CachePolicy(scope, `${id}CachePolicy`, {
+    queryStringBehavior: cloudFront.CacheQueryStringBehavior.all(),
+    cookieBehavior: cloudFront.CacheCookieBehavior.all(),
+  });
+
+  return new cloudFront.Distribution(scope, id, {
     defaultRootObject: 'index.html',
-    errorConfigurations: [
+    errorResponses: [
       {
-        errorCode: 404,
-        responseCode: 200,
+        httpStatus: 404,
+        responseHttpStatus: 200,
         responsePagePath: '/index.html',
       },
     ],
-    originConfigs: [
-      {
-        s3OriginSource: {
-          s3BucketSource: props.bucket,
-          originAccessIdentity: props.originAccessIdentity,
-        },
-        behaviors: [
-          {
-            isDefaultBehavior: true,
-            compress: true,
-            forwardedValues: {
-              queryString: true,
-              cookies: { forward: 'all' },
-            },
-          },
-        ],
-      },
-    ],
+    defaultBehavior: {
+      origin: origins.S3BucketOrigin.withOriginAccessIdentity(props.bucket, {
+        originAccessIdentity: props.originAccessIdentity,
+      }),
+      compress: true,
+      cachePolicy,
+    },
   });
 }
