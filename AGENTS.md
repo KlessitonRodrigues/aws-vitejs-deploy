@@ -1,5 +1,12 @@
 # AGENTS.md
 
+File convention: <parent_folder>.<file_name>.ts
+Keep agents.md and readme.md update on change project structure
+Commit small changes using "feat/update/fix/refactor/remove:"
+Push commits is always manual
+Use src/constants for variables
+Use src/utils for utilitare code
+
 ## Project Overview
 
 This project is an AWS CDK application that deploys a Vite.js static website to an S3 bucket served via Amazon CloudFront (Origin Access Identity). It provisions a `WebAppStack` named `ProfileWebsiteStack`.
