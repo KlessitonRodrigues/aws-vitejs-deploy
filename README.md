@@ -1,6 +1,6 @@
 # aws-vitejs-deploy
 
-AWS CDK application that deploys a Vite.js static website to an S3 bucket served via Amazon CloudFront (Origin Access Identity). Provisions a `WebAppStack` named `ProfileWebsiteStack`.
+AWS CDK application that deploys a Vite.js static website to an S3 bucket served via Amazon CloudFront (Origin Access Identity). Provisions a `WebAppStack` named `website-stack`.
 
 ## Usage as Submodule
 
@@ -32,6 +32,19 @@ yarn cdk-deploy
 - Yarn
 - AWS CLI configured with appropriate credentials
 - AWS CDK CLI (`npm install -g aws-cdk`)
+
+## AWS Credentials
+
+Export your AWS credentials before deploying:
+
+```bash
+export AWS_ACCESS_KEY_ID=AKIA...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_DEFAULT_REGION=us-east-1
+```
+
+Alternatively, ensure the AWS CLI is configured via `aws configure`.
+
 
 ## Scripts
 
@@ -68,4 +81,4 @@ aws-vitejs-deploy-service/
 ## Notes
 
 - Assets are sourced from `../../apps/vite-profile-page/dist` relative to `src/main.ts`. Adjust `profilePagePath` in `src/constants/constants.paths.ts` if your Vite build output lives elsewhere.
-- Stack id is `ProfileWebsiteStack`.
+- Stack id is `website-stack`.
