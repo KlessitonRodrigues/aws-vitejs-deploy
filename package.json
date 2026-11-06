@@ -1,5 +1,5 @@
 {
-  "name": "@services/aws-cloudfront-deploy",
+  "name": "aws-vitejs-deploy",
   "version": "1.0.0",
   "scripts": {
     "cdk-synt": "cdk synthesize",

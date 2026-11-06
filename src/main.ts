@@ -2,10 +2,10 @@ import * as cdk from 'aws-cdk-lib';
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as s3Deploy from 'aws-cdk-lib/aws-s3-deployment';
 
-import { createS3Bucket } from './lib/s3/bucket';
-import { createCloudFrontDistribution } from './lib/cloudfront/distribution';
-import { paths } from './constants/paths';
-import { resources } from './constants/resources';
+import { createS3Bucket } from './lib/s3/s3.bucket';
+import { createCloudFrontDistribution } from './lib/cloudfront/cloudfront.distribution';
+import { paths } from './constants/constants.paths';
+import { resources } from './constants/constants.resources';
 
 export class WebAppStack extends cdk.Stack {
   constructor(scope: cdk.App, props?: cdk.StackProps) {

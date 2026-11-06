@@ -16,41 +16,42 @@ This project is an AWS CDK application that deploys a Vite.js static website to 
 ## Project Structure
 
 ```
-aws-vitejs-deploy/
+aws-vitejs-deploy-service/
 ├── AGENTS.md
 ├── .gitignore
 ├── .prettierrc
-├── cdk.json              # CDK app entry: `npx ts-node --prefer-ts-exts src/awsDeploy.ts`
-├── package.json          # @services/aws-cloudfront-deploy v1.0.0
+├── cdk.json              # CDK app entry: `npx ts-node --prefer-ts-exts src/main.ts`
+├── package.json          # aws-vitejs-deploy v1.0.0
 ├── tsconfig.json         # ES2020 target, CommonJS module, strict mode
 ├── yarn.lock
 ├── src/
-│   ├── awsDeploy.ts      # CDK stack definition & app entrypoint
+│   ├── main.ts      # CDK stack definition & app entrypoint
 │   ├── constants/
-│   │   └── paths.ts      # Path variables (profilePagePath)
+│   │   ├── constants.paths.ts      # Path variables (profilePagePath)
+│   │   └── constants.resources.ts  # Resource name constants
 │   └── lib/
 │       ├── s3/
-│       │   └── bucket.ts # S3 bucket construct
+│       │   └── s3.bucket.ts # S3 bucket construct
 │       └── cloudfront/
-│           └── distribution.ts # CloudFront distribution construct
+│           └── cloudfront.distribution.ts # CloudFront distribution construct
 ├── cdk.out/              # Synthesized CDK output (gitignored)
 └── node_modules/         # Installed dependencies (gitignored)
 ```
 
 ## Key Files
 
-### `src/awsDeploy.ts`
+### `src/main.ts`
 Defines `WebAppStack` (stack id `ProfileWebsiteStack`):
 - **S3 Bucket** (`ProfileWebsite`) — `autoDeleteObjects: true`, `removalPolicy: DESTROY`
 - **CloudFront Origin Access Identity** — grants S3 read access
 - **CloudFront WebDistribution** (`ProfileWebsiteDist`) — `defaultRootObject: index.html`, 404 → `/index.html` SPA fallback, default behavior compresses and forwards query strings + all cookies
 - **BucketDeployment** (`ProfileWebsiteBucket`) — deploys assets from `../../apps/vite-profile-page/dist` to the bucket, invalidates the distribution
 
-### `src/constants/paths.ts`
+### `src/constants/constants.paths.ts`
 Path variables exported as `paths` object:
 - `paths.profilePagePath` — resolves to `../../apps/vite-profile-page/dist` relative to the constants file
 
-### `src/constants/resources.ts`
+### `src/constants/constants.resources.ts`
 Resource name constants exported as `resources` object:
 - `resources.stackName` — `ProfileWebsiteStack`
 - `resources.nameCloudFront` — `ProfileWebsiteDist`
@@ -58,14 +59,14 @@ Resource name constants exported as `resources` object:
 - `resources.nameOriginAccessIdentity` — `ProfileWebsiteOrigin`
 - `resources.nameBucketDeployment` — `ProfileWebsiteBucket`
 
-### `src/lib/s3/bucket.ts`
+### `src/lib/s3/s3.bucket.ts`
 `createS3Bucket(scope, id, props?)` — creates an S3 bucket with `autoDeleteObjects: true` and `removalPolicy: DESTROY`.
 
-### `src/lib/cloudfront/distribution.ts`
+### `src/lib/cloudfront/cloudfront.distribution.ts`
 `createCloudFrontDistribution(scope, id, props)` — creates a CloudFront WebDistribution with SPA fallback and default compressed behavior.
 
 ### `cdk.json`
-App command: `npx ts-node --prefer-ts-exts src/awsDeploy.ts`
+App command: `npx ts-node --prefer-ts-exts src/main.ts`
 
 ### `tsconfig.json`
 Target ES2020, CommonJS modules, strict type checking, `types: ["node"]`, excludes `node_modules`, `cdk.out`, `dist`.
