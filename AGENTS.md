@@ -2,7 +2,7 @@
 
 File convention: <parent_folder>.<file_name>.ts
 Keep agents.md and readme.md update on change project structure
-Commit small changes using "feat/update/fix/refactor/remove:<short_description>"
+Commit small changes using "feat/update/fix/refactor/remove: short description"
 Push commits is always manual
 Use src/config for configuration
 Use src/constants for variables
