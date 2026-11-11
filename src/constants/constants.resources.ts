@@ -1,4 +1,4 @@
-export const stackName = 'website-stack';
+export const stackName = 'profile-page';
 
 export const resources = {
   stackName,
