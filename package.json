@@ -1,5 +1,5 @@
 {
-  "name": "aws-vitejs-deploy",
+  "name": "@services/aws-vitejs-deploy",
   "version": "1.0.0",
   "scripts": {
     "cdk-synt": "cdk synthesize",
