@@ -2,6 +2,14 @@
 
 AWS CDK application that deploys a Vite.js static website to an S3 bucket served via Amazon CloudFront (Origin Access Identity). Provisions a `WebAppStack` named `website-stack`.
 
+## Architecture
+
+![Architecture diagram](diagram.svg)
+
+**Deployment flow** — `cdk deploy` uploads the Vite build output (`apps/vite-profile-page/dist`) to a private S3 bucket via a `BucketDeployment` construct and invalidates the CloudFront cache.
+
+**Serving flow** — CloudFront serves the site using an Origin Access Identity to read from the private bucket, with compression and an SPA fallback (`404 → /index.html`).
+
 ## Usage as Submodule
 
 Add this repository as a Git submodule to your parent project:
@@ -60,6 +68,7 @@ aws-vitejs-deploy-service/
 ├── AGENTS.md
 ├── .gitignore
 ├── .prettierrc
+├── diagram.svg           # Architecture diagram
 ├── cdk.json              # CDK app entry
 ├── package.json
 ├── tsconfig.json

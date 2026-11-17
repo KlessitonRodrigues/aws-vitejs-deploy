@@ -31,6 +31,7 @@ aws-vitejs-deploy-service/
 ├── AGENTS.md
 ├── .gitignore
 ├── .prettierrc
+├── diagram.svg           # Architecture diagram
 ├── cdk.json              # CDK app entry: `npx ts-node --prefer-ts-exts src/main.ts`
 ├── package.json          # aws-vitejs-deploy v1.0.0
 ├── tsconfig.json         # ES2020 target, CommonJS module, strict mode
